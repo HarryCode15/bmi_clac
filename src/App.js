@@ -10,22 +10,29 @@ function App() {
 
   // Logic
   let calcBmi = (e) =>{
-
+    Event.preventDefault()
     if(weight === 0 || height === 0){
       alert("Please enter valid weight and height.");
     }
     else{
       let bmi = (weight/(height*height)*703);
-      setBmi(bmi.toFixed(1))
+      setBmi(bmi.toFixed(1));
     }
-
+    
     if(bmi < 25) {
-      setMessage('You are underweight.')
+      setMessage('You are underweight.');
     }
     else if(bmi>25 && bmi<30){
       setMessage('You are healthy.');
     }
-    
+    else{
+      setMessage('You are over weight.');
+    }
+
+  }
+
+  let reload = () =>{
+    window.location.reload();
   }
 
 
@@ -50,13 +57,13 @@ function App() {
             <label>weight (cm)</label>
             <input
               type="text"
-              placeholder="Enter your weight here..."
+              placeholder="Enter your height here..."
               value={height}
               onChange={(e) => setHeight(e.target.value)}
             />
           </div>
 
-          <button className="btn" type="submit">
+          <button className="btn" type="submit" onClick={calcBmi}>
             Submit
           </button>
           <button className="btn reload-btn" type="submit" onClick={reload}>
@@ -65,7 +72,7 @@ function App() {
 
           <div className="result">
             <h3>Your BMI is : {bmi}</h3>
-            <h3>{messsage}</h3>
+            <h3>{message}</h3>
           </div>
         </form>
       </div>
