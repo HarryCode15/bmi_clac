@@ -9,42 +9,35 @@ function App() {
   const [message, setMessage] = useState("");
 
   // Logic
-  let calcBmi = (e) =>{
-    Event.preventDefault()
-    if(weight === 0 || height === 0){
+  let calcBmi = (e) => {
+    e.preventDefault();
+    if (weight === 0 || height === 0 || weight === '' || height === '') {
       alert("Please enter valid weight and height.");
-    }
-    else{
-      let bmi = (weight/(height*height)*703);
+    } else {
+      let bmi = (weight / (height * height)) * 703;
       setBmi(bmi.toFixed(1));
+      if (bmi < 25) {
+        setMessage("You are underweight.");
+      } else if (bmi > 25 && bmi < 30) {
+        setMessage("You are healthy.");
+      } else {
+        setMessage("You are over weight.");
+      }
     }
-    
-    if(bmi < 25) {
-      setMessage('You are underweight.');
-    }
-    else if(bmi>25 && bmi<30){
-      setMessage('You are healthy.');
-    }
-    else{
-      setMessage('You are over weight.');
-    }
+  };
 
-  }
-
-  let reload = () =>{
+  let reload = () => {
     window.location.reload();
-  }
-
-
+  };
 
   return (
     <div>
       <div className="container">
-        <h2>BMI CALCULATOR</h2>
+        <h2 id="title">BMI CALCULATOR</h2>
 
         <form>
-          <div>
-            <label>Weight (ibs)</label>
+          <div className="input-fields">
+            <label>Weight (ibs):</label>
             <input
               type="text"
               placeholder="Enter your weight here..."
@@ -53,8 +46,8 @@ function App() {
             />
           </div>
 
-          <div>
-            <label>weight (cm)</label>
+          <div className="input-fields">
+            <label>Height (cm):</label>
             <input
               type="text"
               placeholder="Enter your height here..."
